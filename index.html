@@ -4,28 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task Manager</title>
     <style>
-        button {
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .add-task-btn {
+            padding: 7px;
             background-color: green;
-            color: white;
             border-radius: 4px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #taskInput {
+            width: 300px;
+            padding: 8px;
+        }
+
+        #taskList {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-item {
+            background: lightgray;
+            padding: 10px;
+            margin: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            padding: 7px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <h1>Task Manager</h1>
-    <form action="onclick">
-        <input type="text" name="" id="" placeholder="Enter a task...">
-        <button type="submit" onclick="saveTask()">Add Task</button>
-    </form>
-
-
+    <h2>Task Manager</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button class="add-task-btn" onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
 
     <script>
-        function saveTask() {
-            
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value;
+
+            if (taskText === "") {
+                alert("Please enter a task");
+                return;
+            }
+
+            let li = document.createElement("li");
+            li.className = "task-item";
+            li.innerHTML = taskText + ' <button class="delete-btn" onclick="deleteTask(this)">Delete</button>';
+
+            document.getElementById("taskList").appendChild(li);
+            taskInput.value = "";
+        }
+
+        function deleteTask(button) {
+            let li = button.parentElement;
+            li.remove();
         }
     </script>
 </body>
